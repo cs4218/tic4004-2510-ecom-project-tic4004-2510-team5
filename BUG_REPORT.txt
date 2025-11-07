@@ -1,0 +1,444 @@
+BUG REPORT - VIRTUAL VAULT E-COMMERCE APPLICATION
+========================================================
+
+Date: November 2, 2025
+Team: 2-Member Team
+Testing Scope: All except Administrative Tasks
+
+========================================================
+
+EXECUTIVE SUMMARY
+
+During comprehensive unit and UI testing of the Virtual Vault e-commerce application, 11 bugs were identified through systematic testing. This report documents all bugs found, their severity, reproduction steps, and recommended fixes.
+
+IMPORTANT NOTES:
+
+- All bugs remain in the original code - No fixes have been implemented
+- Tests successfully detect these bugs - Some unit tests fail as expected when testing buggy code
+
+========================================================
+
+BUGS IDENTIFIED
+
+BUG #1: TYPO IN SEARCH RESULTS PAGE HEADING
+========================================================
+
+Severity: Low (Cosmetic)
+Location: client/src/pages/Search.js:10
+Component: Search Results Page
+
+Description:
+The search results page displays "Search Resuts" instead of "Search Results" (missing 'l').
+
+Reproduction Steps:
+1. Navigate to homepage
+2. Use search functionality to search for any product
+3. Observe the heading on the search results page
+
+Expected Behavior:
+Heading should read "Search Results"
+
+Actual Behavior:
+Heading reads "Search Resuts"
+
+Fix:
+In Line 10 in Search.js, change from "Search Resuts" to:
+<h1>Search Results</h1>
+
+Impact: Low - Does not affect functionality, only user experience
+
+---
+
+BUG #2: PROFILE UPDATE ERROR HANDLING TYPO
+========================================================
+
+Severity: Medium
+Location: client/src/pages/user/Profile.js:37
+Component: User Profile
+
+Description:
+The error checking condition has a typo: if (data?.errro) instead of if (data?.error). This means actual errors from the backend will not be caught and displayed to users.
+
+Reproduction Steps:
+1. Login as a user
+2. Navigate to profile page
+3. Attempt to update profile with invalid data that triggers a backend error
+4. Backend error message is not displayed to user
+
+Expected Behavior:
+Backend error messages should be displayed to the user via toast notification
+
+Actual Behavior:
+Error messages are not caught due to typo, generic "Something went wrong" message may appear instead
+
+Fix:
+In Line 37 in Profile.js, change from data?.errro to:
+if (data?.error) {
+  toast.error(data?.error);
+}
+
+Impact: Medium - Users don't receive specific error messages about why profile updates fail
+
+---
+
+BUG #3: MISSING ADD TO CART FUNCTIONALITY
+========================================================
+
+Severity: High
+Location: client/src/pages/Search.js and client/src/pages/ProductDetails.js
+Component: Product Cards in Search Results and Product Details
+
+Description:
+The "ADD TO CART" buttons in Search.js (lines 30-31) and ProductDetails.js (line 65) are present but not functional - they have no onClick handlers or functionality implemented.
+
+Reproduction Steps:
+1. Search for a product or view product details
+2. Click "ADD TO CART" button
+3. Nothing happens
+
+Expected Behavior:
+Product should be added to cart, cart state should update, localStorage should be updated, and a success toast should appear
+
+Actual Behavior:
+Button exists but does nothing when clicked
+
+Fix:
+Add onClick handler similar to HomePage implementation:
+<button
+  className="btn btn-secondary ms-1"
+  onClick={() => {
+    setCart([...cart, product]);
+    localStorage.setItem("cart", JSON.stringify([...cart, product]));
+    toast.success("Item Added to cart");
+  }}
+>
+  ADD TO CART
+</button>
+
+Impact: High - Core e-commerce functionality is broken in multiple areas
+
+---
+
+BUG #4: INCONSISTENT BUTTON STYLING (class vs className)
+========================================================
+
+Severity: Low
+Location: Multiple files - Search.js:30-31, ProductDetails.js:65
+Component: Buttons
+
+Description:
+Some buttons use class instead of className which is incorrect React syntax. While browsers may tolerate this, it generates console warnings and is not best practice.
+
+Reproduction Steps:
+1. Open browser developer console
+2. Navigate to search results or product details page
+3. Observe React warnings in console
+
+Expected Behavior:
+No React warnings, proper use of className
+
+Actual Behavior:
+Console warnings about using class instead of className
+
+Fix:
+Change from:
+<button class="btn btn-primary ms-1">
+
+To:
+<button className="btn btn-primary ms-1">
+
+Impact: Low - Cosmetic/code quality issue
+
+---
+
+BUG #5: LOGIN BUTTON MISSPELLING
+========================================================
+
+Severity: Low (Cosmetic)
+Location: client/src/pages/CartPage.js:165
+Component: Cart Page - Checkout Button
+
+Description:
+Button text shows "Plase Login to checkout" instead of "Please Login to checkout" (missing 'e').
+
+Reproduction Steps:
+1. Add items to cart without logging in
+2. Navigate to cart page
+3. Observe the login button text
+
+Expected Behavior:
+Button should read "Please Login to checkout"
+
+Actual Behavior:
+Button reads "Plase Login to checkout"
+
+Fix:
+In Line 165 in CartPage.js, change from "Plase Login to checkout" to:
+Please Login to checkout
+
+Impact: Low - Does not affect functionality
+
+---
+
+BUG #6: ORDER STATUS TYPO
+========================================================
+
+Severity: Medium
+Location: models/orderModel.js:14
+Component: Order Model Schema
+
+Description:
+Order status enum includes "deliverd" instead of "delivered" (missing 'e'). This means database entries and order tracking will use incorrect spelling.
+
+Reproduction Steps:
+1. Create an order
+2. Admin updates order status to "delivered"
+3. Database stores "deliverd"
+
+Expected Behavior:
+Correct spelling "delivered" throughout the system
+
+Actual Behavior:
+Uses misspelled "deliverd"
+
+Fix:
+In orderModel.js, change from:
+enum: ["Not Process", "Processing", "Shipped", "deliverd", "cancel"],
+to:
+enum: ["Not Process", "Processing", "Shipped", "delivered", "cancel"],
+
+Impact: Medium - Affects data integrity and may cause confusion in order tracking
+
+---
+
+BUG #7: MISSING CART CONTEXT IMPORT IN PRODUCTDETAILS
+========================================================
+
+Severity: High
+Location: client/src/pages/ProductDetails.js
+Component: Product Details Page
+
+Description:
+The ProductDetails component has commented-out code for adding items to cart (lines 102-114), but even if uncommented, it would fail because the cart and setCart from useCart context are not imported or defined.
+
+Reproduction Steps:
+1. Uncomment the add to cart code in ProductDetails
+2. Try to add a product to cart
+3. Error occurs due to undefined cart variable
+
+Expected Behavior:
+Cart functionality should be fully implemented with proper context imports
+
+Actual Behavior:
+Code is commented out and missing necessary imports
+
+Fix:
+Add the import:
+import { useCart } from "../context/cart";
+
+In component, add:
+const [cart, setCart] = useCart();
+
+Impact: High - Core functionality is incomplete
+
+---
+
+BUG #8: INCONSISTENT "ADD TO CART" CASE SENSITIVITY
+========================================================
+
+Severity: Low
+Location: Multiple locations
+Component: Various product display pages
+
+Description:
+Button text uses different cases: "ADD TO CART" (all caps) in some places and potential lowercase in others. Inconsistent UI/UX.
+
+Reproduction Steps:
+1. Navigate through different pages
+2. Compare "Add to Cart" button text casing
+
+Expected Behavior:
+Consistent button text casing across all pages
+
+Actual Behavior:
+Mixed casing
+
+Fix:
+Standardize to either "ADD TO CART" or "Add to Cart" across entire application
+
+Impact: Low - UX consistency issue
+
+---
+
+BUG #9: EMAIL FIELD DISABLED IN PROFILE WITHOUT CLEAR INDICATION
+========================================================
+
+Severity: Low
+Location: client/src/pages/user/Profile.js:82
+Component: User Profile Form
+
+Description:
+The email field is disabled in the profile form, but there's no visual indication (like grayed out appearance with modern browsers) or helper text explaining that email cannot be changed.
+
+Reproduction Steps:
+1. Login and navigate to profile
+2. Try to edit email field
+3. Field is disabled but not obviously so
+
+Expected Behavior:
+Clear visual indication that email field is read-only, possibly with a tooltip or helper text
+
+Actual Behavior:
+Field is disabled but may confuse users
+
+Recommended Enhancement:
+<input
+  type="email"
+  value={email}
+  className="form-control"
+  placeholder="Enter Your Email (Cannot be changed)"
+  disabled
+  style={{ backgroundColor: '#e9ecef' }}
+/>
+<small className="text-muted">Email address cannot be modified</small>
+
+Impact: Low - UX improvement needed
+
+---
+
+BUG #10: NO INPUT VALIDATION FOR PASSWORD LENGTH
+========================================================
+
+Severity: Medium
+Location: client/src/pages/Auth/Register.js and Login.js
+Component: Authentication Forms
+
+Description:
+Forms have required attribute but no client-side validation for password strength, length, or format. Users can register with weak passwords like "123".
+
+Reproduction Steps:
+1. Navigate to register page
+2. Enter very short password (e.g., "12")
+3. Form submits without client-side validation
+
+Expected Behavior:
+Client-side validation for password requirements (minimum length, complexity)
+
+Actual Behavior:
+No client-side password validation
+
+Recommended Enhancement:
+<input
+  type="password"
+  minLength="6"
+  pattern="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$"
+  title="Password must be at least 6 characters long and contain both letters and numbers"
+  required
+/>
+
+Impact: Medium - Security concern
+
+---
+
+BUG #11: EMAIL PLACEHOLDER HAS TRAILING SPACE
+========================================================
+
+Severity: Low (Code Quality)
+Location: client/src/pages/Auth/Login.js:65 and client/src/pages/Auth/Register.js:66
+Component: Authentication Forms
+
+Description:
+Email input fields have placeholder text with trailing space: "Enter Your Email " (note the space at the end). This is inconsistent with other placeholders and can cause issues with automated testing.
+
+Reproduction Steps:
+1. Inspect the email input field in Login or Register page
+2. Check the placeholder attribute value
+3. Notice the trailing space at the end
+
+Expected Behavior:
+Placeholder should be "Enter Your Email" without trailing space
+
+Actual Behavior:
+Placeholder is "Enter Your Email " with trailing space
+
+Fix:
+In Login.js line 65 and Register.js line 66, change from "Enter Your Email " to:
+placeholder="Enter Your Email"
+
+Impact: Low - Causes issues with Playwright tests that need to account for the trailing space in selectors. Code quality issue.
+
+Detected By: UI Tests (UI-1, UI-2, UI-3) - Tests had to be adjusted to work around this bug
+
+========================================================
+
+SUMMARY STATISTICS
+
+Total Bugs Found: 11
+High Severity: 2 (Bugs #3, #7)
+Medium Severity: 3 (Bugs #2, #6, #10)
+Low Severity: 6 (Bugs #1, #4, #5, #8, #9, #11)
+
+========================================================
+
+TESTING METHODOLOGY
+
+Bugs were identified through:
+1. Unit Testing: Jest tests for individual components
+2. UI Testing: Playwright end-to-end tests
+3. Code Review: Manual inspection of source code
+4. Boundary Value Analysis: Testing edge cases
+5. Equivalence Partitioning: Testing different input classes
+
+========================================================
+
+RECOMMENDATIONS
+
+IMMEDIATE FIXES NEEDED (HIGH PRIORITY):
+
+1. Implement Add to Cart functionality across all product displays
+2. Fix cart context imports in ProductDetails
+3. Correct the Profile error handling typo
+
+SHORT-TERM FIXES (MEDIUM PRIORITY):
+
+1. Fix order status spelling in database model
+2. Add client-side password validation
+3. Correct profile error handling
+
+LONG-TERM IMPROVEMENTS (LOW PRIORITY):
+
+1. Fix all cosmetic typos
+2. Standardize button styling
+3. Improve form field UX with better visual indicators
+4. Add comprehensive input validation across all forms
+5. Implement consistent styling guidelines
+
+========================================================
+
+TEST COVERAGE
+
+UNIT TESTS IMPLEMENTED:
+
+Total Unit Tests: 27 tests (7 original existing tests + 20 new tests for assignment)
+
+New Tests for Assignment: 20 tests (sequentially numbered 1-20)
+- Member 1 Tests: 10 tests (Tests 1-10: Login: 4, SearchInput: 3, CartPage: 3)
+- Member 2 Tests: 10 tests (Tests 11-20: Profile: 3, ProductDetails: 4, Search: 3)
+
+Original Existing Tests: 7 tests (not counted toward assignment requirement)
+- Login.test.js: 5 original tests
+- Register.test.js: 2 original tests
+
+UI TESTS IMPLEMENTED:
+
+Total UI Tests: 6 tests (exactly as required)
+- Member 1 Tests: 3 tests (UI-1, UI-2, UI-3 - Authentication flows)
+- Member 2 Tests: 3 tests (UI-4, UI-5, UI-6 - Shopping and browsing flows)
+
+========================================================
+
+CONCLUSION
+
+While the application has a solid foundation, the bugs identified (particularly the high-severity ones around cart functionality) significantly impact core e-commerce features. Addressing the high and medium severity bugs should be prioritized to ensure a functional shopping experience.
+
+The low-severity bugs, while not critical, should still be fixed to improve overall code quality and user experience.

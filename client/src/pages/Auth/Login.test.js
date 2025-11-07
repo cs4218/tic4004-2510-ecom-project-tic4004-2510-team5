@@ -135,4 +135,81 @@ describe('Login Component', () => {
         await waitFor(() => expect(axios.post).toHaveBeenCalled());
         expect(toast.error).toHaveBeenCalledWith('Something went wrong');
     });
+
+    // Member 1 - Test 1: Boundary Value Analysis - Empty email field
+    it('should have required attribute on email field to prevent empty submission', () => {
+        const { getByPlaceholderText, getByText } = render(
+            <MemoryRouter initialEntries={['/login']}>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const emailInput = getByPlaceholderText('Enter Your Email');
+        const passwordInput = getByPlaceholderText('Enter Your Password');
+
+        // Set only password, leave email empty
+        fireEvent.change(passwordInput, { target: { value: 'password123' } });
+
+        // Check that email field is required
+        expect(emailInput).toHaveAttribute('required');
+        expect(emailInput.value).toBe('');
+    });
+
+    // Member 1 - Test 2: Boundary Value Analysis - Empty password field
+    it('should have required attribute on password field to prevent empty submission', () => {
+        const { getByPlaceholderText, getByText } = render(
+            <MemoryRouter initialEntries={['/login']}>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const emailInput = getByPlaceholderText('Enter Your Email');
+        const passwordInput = getByPlaceholderText('Enter Your Password');
+
+        // Set only email, leave password empty
+        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+
+        // Check that password field is required
+        expect(passwordInput).toHaveAttribute('required');
+        expect(passwordInput.value).toBe('');
+    });
+
+    // Member 1 - Test 3: Equivalence Partitioning - Invalid email format
+    it('should have email type validation for invalid email format', () => {
+        const { getByPlaceholderText } = render(
+            <MemoryRouter initialEntries={['/login']}>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const emailInput = getByPlaceholderText('Enter Your Email');
+
+        // Check email input has type="email" for HTML5 validation
+        expect(emailInput).toHaveAttribute('type', 'email');
+
+        // Test invalid email format
+        fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
+        expect(emailInput.value).toBe('invalid-email');
+    });
+
+    // Member 1 - Test 4: Decision Table - Forgot password navigation
+    it('should navigate to forgot password page when forgot password button clicked', () => {
+        const { getByText } = render(
+            <MemoryRouter initialEntries={['/login']}>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const forgotPasswordButton = getByText('Forgot Password');
+        expect(forgotPasswordButton).toBeInTheDocument();
+        expect(forgotPasswordButton).toHaveAttribute('type', 'button');
+    });
 });

@@ -8,6 +8,9 @@ export default {
   // which test to run
   testMatch: ["<rootDir>/controllers/*.test.js"],
 
+  // Pass with no tests (since we're only testing frontend for this assignment)
+  passWithNoTests: true,
+
   // jest code coverage
   collectCoverage: true,
   collectCoverageFrom: ["controllers/**"],
