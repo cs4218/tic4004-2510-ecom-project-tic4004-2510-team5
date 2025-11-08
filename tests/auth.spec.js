@@ -110,8 +110,5 @@ test.describe('Member 1 - Authentication UI Tests', () => {
     const currentUrl = page.url();
     expect(currentUrl).toContain('/login');
 
-    // Verify error toast or message appears
-    // Note: This depends on how your app displays errors
-    // Could be a toast notification or inline error message
   });
 });
