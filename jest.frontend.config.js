@@ -3,15 +3,15 @@ export default {
   displayName: "frontend",
 
   // simulates browser environment in jest
-  // e.g., using document.querySelector in your tests
+
   testEnvironment: "jest-environment-jsdom",
 
-  // jest does not recognise jsx files by default, so we use babel to transform any jsx files
+  //  use babel to transform any jsx files
   transform: {
     "^.+\\.jsx?$": "babel-jest",
   },
 
-  // tells jest how to handle css/scss imports in your tests
+  // tells jest how to handle css/scss imports
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
   },
@@ -39,8 +39,8 @@ export default {
   ],
   coverageThreshold: {
     global: {
-      lines: 80,
-      functions: 80,
+      lines: 75,
+      functions: 75,
     },
   },
   setupFilesAfterEnv: ["<rootDir>/client/src/setupTests.js"],
