@@ -1,17 +1,17 @@
-================================================================================
-AI ASSISTANCE ATTRIBUTION
-================================================================================
+ATTRIBUTION
 
-Project: Virtual Vault E-commerce Application - Testing Implementation
 Team: Team 5 (2-Member Team)
-Date: November 7, 2025
 
-================================================================================
 
 AI MODELS USED
 
 Primary AI Assistant: Claude (Anthropic)
 - Model: Claude Sonnet 4.5
+- Purpose: Test automation setup, test case generation, debugging, and
+  documentation
+
+Other AI assistant: ChatGPT (OpenAI)
+- Model: GPT-5
 - Purpose: Test automation setup, test case generation, debugging, and
   documentation
 
@@ -50,7 +50,7 @@ AREAS WHERE AI ASSISTANCE WAS USED
 EXAMPLE PROMPTS USED
 
 Initial Setup:
-"Help me set up Jest and React Testing Library for testing a MERN stack
+"How do I set up Jest and React Testing Library for testing a MERN stack
 e-commerce application. I need to test React components with proper mocking
 of contexts and external dependencies."
 
@@ -107,18 +107,16 @@ HUMAN CONTRIBUTION
    - Verifying all 26 tests run successfully
    - Confirming bug reports are accurate and reproducible
 
-================================================================================
 
 LEARNING OUTCOMES
 
-team members gained practical experience in:
+team members gained experience in:
 
 1. Modern testing frameworks (Jest, React Testing Library, Playwright)
 2. Test-driven development practices and debugging techniques
 3. Mocking strategies for complex React applications
 4. Applying academic testing principles to real-world scenarios
 5. Effective collaboration with AI tools for software engineering tasks
-6. Critical evaluation of AI-generated code and suggestions
 
 
 
