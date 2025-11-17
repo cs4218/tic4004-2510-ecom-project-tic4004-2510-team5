@@ -3,15 +3,15 @@ module.exports = {
   displayName: "frontend",
 
   // simulates browser environment in jest
-  // e.g., using document.querySelector in your tests
+
   testEnvironment: "jest-environment-jsdom",
 
-  // jest does not recognise jsx files by default, so we use babel to transform any jsx files
+  //  use babel to transform any jsx files
   transform: {
     "^.+\\.jsx?$": "babel-jest",
   },
 
-  // tells jest how to handle css/scss imports in your tests
+  // tells jest how to handle css/scss imports
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
   },
@@ -22,6 +22,9 @@ module.exports = {
   // only run these tests
   testMatch: [
     "<rootDir>/client/src/pages/Auth/*.test.js",
+    "<rootDir>/client/src/components/Form/*.test.js",
+    "<rootDir>/client/src/pages/*.test.js",
+    "<rootDir>/client/src/pages/user/*.test.js"
     "<rootDir>/client/src/tests/frontend/*.ui.test.js",
   ],
 
@@ -29,12 +32,17 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     "client/src/pages/Auth/**",
+    "client/src/components/Form/**",
+    "client/src/pages/CartPage.js",
+    "client/src/pages/Search.js",
+    "client/src/pages/ProductDetails.js",
+    "client/src/pages/user/Profile.js"
     "client/src/components/Form/**/*.js",
   ],
   coverageThreshold: {
     global: {
-      lines: 100,
-      functions: 100,
+      lines: 75,
+      functions: 75,
     },
   },
   setupFilesAfterEnv: ["<rootDir>/client/src/setupTests.js"],

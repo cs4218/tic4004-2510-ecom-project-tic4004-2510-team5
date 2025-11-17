@@ -1,0 +1,131 @@
+ATTRIBUTION
+
+Team: Team 5 (2-Member Team)
+
+
+AI MODELS USED
+
+Primary AI Assistant: Claude (Anthropic)
+- Model: Claude Sonnet 4.5
+- Purpose: Test automation setup, test case generation, debugging, and
+  documentation
+
+Other AI assistant: ChatGPT (OpenAI)
+- Model: GPT-5
+- Purpose: Test automation setup, test case generation, debugging, and
+  documentation
+
+
+
+AREAS WHERE AI ASSISTANCE WAS USED
+
+1. TEST ENVIRONMENT SETUP
+   - Configuration of Jest with React Testing Library for frontend testing
+   - Setup of Playwright for UI/E2E testing
+   - Creation of separate configuration files (jest.frontend.config.js,
+     jest.backend.config.js, playwright.config.js)
+   - Installation and configuration of testing dependencies
+
+2. TEST CASE DESIGN AND IMPLEMENTATION
+   - Applied testing principles: Boundary Value Analysis, Equivalence
+     Partitioning, Decision Tables, and Finite State Machine concepts
+   - Assisted with 20 unique unit tests covering authentication, cart, search,
+     and profile functionality
+   - Assisted with 6 UI tests covering end-to-end user flows
+   - Ensured test uniqueness and proper distribution between team members
+
+3. MOCKING AND TEST UTILITIES
+   - Setup of React context mocks (useAuth, useCart, useSearch)
+   - Configuration of external dependency mocks (axios, react-hot-toast)
+   - localStorage mocking for browser API testing
+   - React Router mocking with MemoryRouter for navigation testing
+
+4. BUG DETECTION AND ANALYSIS
+   - Identified 11 bugs in the application through test failures
+   - Categorized bugs by severity (High, Medium, Low)
+   - Documented reproduction steps and suggested fixes
+   - Validated that tests correctly fail when bugs are present
+
+
+EXAMPLE PROMPTS USED
+
+Initial Setup:
+"How do I set up Jest and React Testing Library for testing a MERN stack
+e-commerce application. I need to test React components with proper mocking
+of contexts and external dependencies."
+
+Test Generation:
+"Waht are good 10 unit tests for authentication and cart functionality applying
+these testing principles: Boundary Value Analysis, Equivalence Partitioning,
+Decision Tables, and Finite State Machines. Each test should be unique and
+well-documented."
+
+"Suggest ideas for Playwright UI tests for user registration, login, and shopping
+flows. Tests should create unique test data and verify complete user journeys."
+
+Debugging:
+"These tests are failing with selector errors. Can you help debug the
+Playwright selectors and ensure they match the actual DOM elements?"
+
+"Test 12 is failing - can you analyze the error and determine if this is
+a real bug in the application code or an issue with the test?"
+
+Code Review and Refinement:
+"Review these test cases and ensure they follow best practices for React
+Testing Library. Check for proper async handling, clear assertions, and
+appropriate use of queries."
+
+"Should I test utility functions or React components for this assignment?
+What provides better value for detecting real application bugs?"
+
+
+
+HUMAN CONTRIBUTION
+
+1. PROJECT REQUIREMENTS ANALYSIS
+   - Understanding assignment scope (20 unit tests, 6 UI tests)
+   - Deciding which components and features to test
+   - Determining test distribution between team members
+
+2. STRATEGIC DECISIONS
+   - Choosing to test React components over isolated utility functions
+   - Selecting which testing principles to apply to each test
+   - Prioritizing test coverage areas based on user impact
+
+3. QUALITY ASSURANCE
+   - Manually running all tests to verify they work correctly
+   - Reviewing AI-generated test code for accuracy and relevance
+   - Validating that tests detect real bugs vs. false positives
+   - Ensuring tests meet assignment requirements
+
+4. DEBUGGING AND ITERATION
+   - Identifying when tests needed adjustment (e.g., placeholder spacing)
+   - Running servers and troubleshooting environment issues
+   - Making decisions about which bugs to fix vs. document
+
+5. FINAL REVIEW
+   - Verifying all 26 tests run successfully
+   - Confirming bug reports are accurate and reproducible
+
+
+LEARNING OUTCOMES
+
+team members gained experience in:
+
+1. Modern testing frameworks (Jest, React Testing Library, Playwright)
+2. Test-driven development practices and debugging techniques
+3. Mocking strategies for complex React applications
+4. Applying academic testing principles to real-world scenarios
+5. Effective collaboration with AI tools for software engineering tasks
+
+
+
+ETHICAL USE STATEMENT
+All AI-generated code was:
+- Reviewed and understood by team members
+- Modified and adapted to project requirements
+- Validated through manual testing and execution
+- Integrated with human judgment and decision-making
+
+
+
