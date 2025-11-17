@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   // name displayed during tests
   displayName: "frontend",
 
@@ -25,6 +25,7 @@ export default {
     "<rootDir>/client/src/components/Form/*.test.js",
     "<rootDir>/client/src/pages/*.test.js",
     "<rootDir>/client/src/pages/user/*.test.js"
+    "<rootDir>/client/src/tests/frontend/*.ui.test.js",
   ],
 
   // jest code coverage
@@ -36,6 +37,7 @@ export default {
     "client/src/pages/Search.js",
     "client/src/pages/ProductDetails.js",
     "client/src/pages/user/Profile.js"
+    "client/src/components/Form/**/*.js",
   ],
   coverageThreshold: {
     global: {

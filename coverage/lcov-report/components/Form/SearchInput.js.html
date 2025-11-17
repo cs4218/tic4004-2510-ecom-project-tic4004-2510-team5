@@ -26,6 +26,9 @@
                 <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>11/12</span>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -40,6 +43,9 @@
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>3/3</span>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -47,6 +53,9 @@
                 <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>11/12</span>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -62,6 +71,7 @@
         </template>
     </div>
     <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,11 +128,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,6 +155,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,11 +181,24 @@ const SearchInput = () =&gt; {
       );
       setValues({ ...values, results: data });
       navigate("/search");
+const SearchInput = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  const [values, setValues] = <span class="cstat-no" title="statement not covered" >useSearch();</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+&nbsp;
+  const handleSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (e) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const { data } = <span class="cstat-no" title="statement not covered" >await axios.get(</span>
+        `/api/v1/product/search/${values.keyword}`
+      );
+<span class="cstat-no" title="statement not covered" >      setValues({ ...values, results: data });</span>
+<span class="cstat-no" title="statement not covered" >      navigate("/search");</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.log(error);</span>
     }
   };
   return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;form className="d-flex" role="search" onSubmit={handleSubmit}&gt;
         &lt;input
@@ -171,6 +208,7 @@ const SearchInput = () =&gt; {
           aria-label="Search"
           value={values.keyword}
           onChange={(e) =&gt; setValues({ ...values, keyword: e.target.value })}
+          onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setValues({ ...values, keyword: e.target.value })}</span>
         /&gt;
         &lt;button className="btn btn-outline-success" type="submit"&gt;
           Search
@@ -188,6 +226,7 @@ export default SearchInput;</pre></td></tr></table></pre>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2025-11-08T09:08:29.377Z
+                at 2025-11-05T21:02:47.499Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
